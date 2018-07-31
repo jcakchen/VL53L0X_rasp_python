@@ -32,7 +32,7 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUTTON_IO, GPIO.IN, GPIO.PUD_UP)
 
-def Button_ON():
+def Button_ON(channel):
 	print("button is on")
 	
 GPIO.add_event_detect(BUTTON_IO, GPIO.FALLING, callback=Button_ON)
