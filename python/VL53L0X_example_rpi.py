@@ -24,6 +24,18 @@
 
 import time
 import VL53L0X
+import RPi.GPIO as GPIO
+
+BUTTON_IO = 23
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(BUTTON_IO, GPIO.IN, GPIO.PUD_UP)
+
+def Button_ON():
+	print("button is on")
+	
+GPIO.add_event_detect(BUTTON_IO, GPIO.FALLING, callback=Button_ON)
 
 # Create a VL53L0X object
 tof = VL53L0X.VL53L0X()
@@ -31,16 +43,16 @@ tof = VL53L0X.VL53L0X()
 # Start ranging
 tof.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
 
-timing = tof.get_timing()
-if (timing < 20000):
-    timing = 20000
-print ("Timing %d ms" % (timing/1000))
+#timing = tof.get_timing()
+#if (timing < 20000):
+#    timing = 20000
+#print ("Timing %d ms" % (timing/1000))
 
 while(1):
-    distance = tof.get_distance()
-    if (distance > 0):
-        print ("%d mm" % distance)
+    #distance = tof.get_distance()
+    #if (distance > 0):
+    #    print ("%d mm" % distance)
     time.sleep(0.1)
 
-tof.stop_ranging()
+#tof.stop_ranging()
 
