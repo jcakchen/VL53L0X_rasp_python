@@ -245,7 +245,18 @@ void startRanging(int object_number, int mode, uint8_t i2c_address, uint8_t TCA9
                         {
                             Status = VL53L0X_StaticInit(pMyDevice[object_number]); // Device Initialization
                             // StaticInit will set interrupt by default
-
+						    if (Status == VL53L0X_ERROR_NONE) {
+								Status = VL53L0X_SetGpioConfig(pMyDevice[object_number],1,VL53L0X_DEVICEMODE_CONTINUOUS_RANGING,
+								VL53L0X_GPIOFUNCTIONALITY_THRESHOLD_CROSSED_LOW ,
+								VL53L0X_INTERRUPTPOLARITY_LOW);
+							}
+							if(Status == VL53L0X_ERROR_NONE)
+							{
+								VL53L0X_SetInterruptThresholds(pMyDevice[object_number],VL53L0X_DEVICEMODE_CONTINUOUS_RANGING,
+								50,8000
+								);
+								
+							}
                             if(Status == VL53L0X_ERROR_NONE)
                             {
                                 Status = VL53L0X_PerformRefCalibration(pMyDevice[object_number],
@@ -367,6 +378,7 @@ void startRanging(int object_number, int mode, uint8_t i2c_address, uint8_t TCA9
                                                     break;
                                             }
 
+											VL53L0X_EnableInterruptMask(pMyDevice[object_number], 1);
                                             if(Status == VL53L0X_ERROR_NONE)
                                             {
                                                 Status = VL53L0X_StartMeasurement(pMyDevice[object_number]);
