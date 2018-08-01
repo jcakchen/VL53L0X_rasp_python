@@ -28,7 +28,7 @@ import VL53L0X
 
 
 
-class Range(object)
+class Range(object):
 	""" Detect anything close to the sensor"""
 	CLING = 0
 	CLOSE = 1
