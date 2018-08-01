@@ -70,7 +70,7 @@ class Range(object):
 			elif 60 <= distance <= 200:
 				self.status = CLOSE
 				print("CLOSE%d" % distance)
-			else distance > 200:
+			else:
 				self.status = FAR
 				print("FAR%d" % distance)
 			time.sleep(self.scan_time)
