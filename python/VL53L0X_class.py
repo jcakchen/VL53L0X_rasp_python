@@ -35,19 +35,16 @@ class Range(object):
 	FAR = 2
 	def __init__(self,
 				 sensor_object,
-				 distance = 0,
 				 scan_time = 0.1
 				):
 		"""scan the ranging sensor to detect anything close,
 			then tell the master status
 		Args:
 			sensor_object: sensor type VL53L0X or VL6180X
-			distance: distance from object to sensor
 			status: indicate anything close or nothing close or sensor error 
 		"""
 		self.range = threading.Thread(target=self._ranging)
 		self.sensor_object = VL53L0X.VL53L0X()
-		self.distance = distance
 		self.scan_time = scan_time
 		
 		self.status = None
@@ -64,17 +61,18 @@ class Range(object):
 		self.sensor_object.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
 	def _ranging(self):
 		"""get distance """
+		distance = 0
 		while True:
-			self.distance = self.sensor_object.get_distance()
-			if self.distance < 60
+			distance = self.sensor_object.get_distance()
+			if distance < 60
 				self.status = CLING
-				print("CLING%d" % self.distance)
-			elif 60 <= self.distance <= 200
+				print("CLING%d" % distance)
+			elif 60 <= distance <= 200
 				self.status = CLOSE
-				print("CLOSE%d" % self.distance)
-			else self.distance >200
+				print("CLOSE%d" % distance)
+			else distance > 200
 				self.status = FAR
-				print("FAR%d" % self.distance)
+				print("FAR%d" % distance)
 			time.sleep(self.scan_time)
 
 def main():
