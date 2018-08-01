@@ -34,7 +34,7 @@ class Range(object):
 	CLOSE = 1
 	FAR = 2
 	def __init__(self,
-				 sensor_object,
+				 sensor_object = VL53L0X.VL53L0X(),
 				 scan_time = 0.1
 				):
 		"""scan the ranging sensor to detect anything close,
@@ -44,7 +44,7 @@ class Range(object):
 			status: indicate anything close or nothing close or sensor error 
 		"""
 		self.range = threading.Thread(target=self._ranging)
-		self.sensor_object = VL53L0X.VL53L0X()
+		self.sensor_object = sensor_object
 		self.scan_time = scan_time
 		
 		self.status = None
