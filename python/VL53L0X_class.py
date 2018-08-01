@@ -64,13 +64,13 @@ class Range(object):
 		distance = 0
 		while True:
 			distance = self.sensor_object.get_distance()
-			if distance < 60
+			if distance < 60:
 				self.status = CLING
 				print("CLING%d" % distance)
-			elif 60 <= distance <= 200
+			elif 60 <= distance <= 200:
 				self.status = CLOSE
 				print("CLOSE%d" % distance)
-			else distance > 200
+			else distance > 200:
 				self.status = FAR
 				print("FAR%d" % distance)
 			time.sleep(self.scan_time)
