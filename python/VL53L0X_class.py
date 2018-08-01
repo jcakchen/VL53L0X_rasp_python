@@ -50,6 +50,7 @@ class Range(object):
 		self.status = None
 	def __del__(self):
 		self.sensor_object.stop_ranging()
+		
 	def start(self):
 		""" start the threading to range  """
 		self.start_ranging()
