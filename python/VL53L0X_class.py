@@ -76,9 +76,6 @@ class Range(object):
 			time.sleep(self.scan_time)
 
 def main():
-    if platform.machine() == 'armv6l':
-        print('Cannot run hotword demo on Pi Zero!')
-        exit(-1)
     Range().start()			
 if __name__ == '__main__':
     main()			
