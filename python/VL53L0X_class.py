@@ -53,7 +53,6 @@ class Range(object):
 		
 	def start(self):
 		""" start the threading to range  """
-		self.start_ranging()
 		self.range.start()
 	def start_ranging(self):
 		"""
@@ -63,16 +62,17 @@ class Range(object):
 	def _ranging(self):
 		"""get distance """
 		distance = 0
+		self.start_ranging()
 		while True:
 			distance = self.sensor_object.get_distance()
 			if distance < 60:
-				self.status = CLING
+				#self.status = CLING
 				print("CLING%d" % distance)
 			elif 60 <= distance <= 200:
-				self.status = CLOSE
+				#self.status = CLOSE
 				print("CLOSE%d" % distance)
 			else:
-				self.status = FAR
+				#self.status = FAR
 				print("FAR%d" % distance)
 			time.sleep(self.scan_time)
 
