@@ -43,7 +43,7 @@ class Range(object):
 			sensor_object: sensor type VL53L0X or VL6180X
 			status: indicate anything close or nothing close or sensor error 
 		"""
-		#self.range = threading.Thread(target=self._ranging)
+		self.range = threading.Thread(target=self._ranging)
 		self.sensor_object = sensor_object
 		self.scan_time = scan_time
 		
@@ -59,7 +59,7 @@ class Range(object):
 		initialize the sensor and start ranging
 		"""
 		self.sensor_object.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
-	def ranging(self):
+	def _ranging(self):
 		"""get distance """
 		distance = 0
 		self.start_ranging()
@@ -77,7 +77,7 @@ class Range(object):
 			time.sleep(self.scan_time)
 
 def main():
-    Range().ranging()			
+    Range().start()			
 if __name__ == '__main__':
     main()			
 			
