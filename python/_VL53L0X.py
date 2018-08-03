@@ -29,9 +29,6 @@ import VL53L0X
 
 class Range(object):
 	""" Detect anything close to the sensor"""
-	CLING = 0
-	CLOSE = 1
-	FAR = 2
 	def __init__(self,
 				 sensor_object = VL53L0X.VL53L0X(),
 				 scan_time = 0.05
@@ -70,16 +67,6 @@ class Range(object):
 					self.callback = callback
 					self.callback()
 			time.sleep(self.scan_time)	
-	
-def _rang_callback():
-	print("range callback")
-	
-def main():
-	_range = Range()
-	_range.start()	
-	_range.ranging(callback=_rang_callback)	
-	
-if __name__ == '__main__':
-    main()			
+			
 			
 			
