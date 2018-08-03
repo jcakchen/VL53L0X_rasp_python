@@ -45,7 +45,6 @@ class Range(object):
 		self.range = threading.Thread(target=self.ranging)
 		self.sensor_object = sensor_object
 		self.scan_time = scan_time
-		
 		self.callback = None
 	def __del__(self):
 		self.sensor_object.stop_ranging()
@@ -75,8 +74,9 @@ def _rang_callback():
 	print("range callback")
 	
 def main():
-	Range().ranging(callback=_rang_callback)
-    Range().start()			
+	_range = Range()
+	_range.ranging(callback=_rang_callback)
+    _range.start()			
 if __name__ == '__main__':
     main()			
 			
