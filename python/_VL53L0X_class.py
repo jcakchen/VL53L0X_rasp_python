@@ -75,7 +75,7 @@ def _rang_callback():
 	print("range callback")
 	
 def main():
-	_range = Range().ranging(callback=_rang_callback)
+	Range().ranging(callback=_rang_callback)
     Range().start()			
 if __name__ == '__main__':
     main()			
