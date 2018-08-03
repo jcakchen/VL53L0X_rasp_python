@@ -45,41 +45,37 @@ class Range(object):
 		self.range = threading.Thread(target=self.ranging)
 		self.sensor_object = sensor_object
 		self.scan_time = scan_time
-		self.distance = 0
+		
+		self.callback = None
 	def __del__(self):
 		self.sensor_object.stop_ranging()
 		
 	def start(self):
 		""" start the threading to range  """
 		self.range.start()
+		
 	def start_ranging(self):
 		"""
 		initialize the sensor and start ranging
 		"""
 		self.sensor_object.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
-	def ranging(self):
+		
+	def ranging(self, callback):
 		"""get distance """
 		self.start_ranging()
 		while True:
 			get_data = self.sensor_object.get_distance()
-			self.distance = get_data
-			state()
+			if 0 <= get_data <= 600:
+				print("CLOSE %d" % get_data)
+				if callback:
+					self.callback = callback
 			time.sleep(self.scan_time)	
-
-	def state(self)
-		""" process the distance data """
-		distance = self.distance
-			if distance < 60:
-				self.state = CLING
-				print("CLING %d" % distance)
-			elif 60 <= distance <= 600:
-				self.state = CLOSE
-				print("CLOSE %d" % distance)
-			else:
-				self.state = FAR
-				print("FAR %d" % distance)
-		return self.state	
+	
+def _rang_callback():
+	print("range callback")
+	
 def main():
+	_range = Range().ranging(callback=_rang_callback)
     Range().start()			
 if __name__ == '__main__':
     main()			
