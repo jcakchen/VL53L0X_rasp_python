@@ -68,6 +68,7 @@ class Range(object):
 				print("CLOSE %d" % get_data)
 				if callback:
 					self.callback = callback
+					self.callback()
 			time.sleep(self.scan_time)	
 	
 def _rang_callback():
