@@ -72,6 +72,8 @@ class MyAssistant(object):
             self._can_start_conversation = True
             # Start the voicehat button trigger.
             aiy.voicehat.get_button().on_press(self._on_button_pressed)
+			#Start the range sensor trigger
+			aiy.VL53L0X_rasp_python.python.Range().ranging(self._range_close)
             if sys.stdout.isatty():
                 print('Say "OK, Google" or press the button, then speak. '
                       'Press Ctrl+C to quit...')
@@ -100,7 +102,10 @@ class MyAssistant(object):
         if self._can_start_conversation:
             self._assistant.start_conversation()
 
-
+	def _range_close(self):
+		if self._can_start_conversation:
+            self._assistant.start_conversation()
+			
 def main():
     if platform.machine() == 'armv6l':
         print('Cannot run hotword demo on Pi Zero!')
