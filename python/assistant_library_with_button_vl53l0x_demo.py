@@ -30,6 +30,7 @@ import aiy.assistant.auth_helpers
 from aiy.assistant.library import Assistant
 import aiy.voicehat
 from google.assistant.library.event import EventType
+import aiy.VL53L0X_rasp_python.python._VL53L0X
 
 logging.basicConfig(
     level=logging.INFO,
